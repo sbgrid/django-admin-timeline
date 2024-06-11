@@ -178,7 +178,8 @@ def log(request, template_name=TEMPLATE_NAME,
         last_date = request.POST.get('last_date', None)
 
     # Using different template for AJAX driven requests
-    if request.is_ajax():
+    is_ajax = request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+    if is_ajax:
         # Context to render the AJAX driven HTML with
         context = {
             'admin_log': log_entries,
